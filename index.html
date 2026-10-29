@@ -6,7 +6,7 @@
 <meta name="description" content="Shaik Roshini, Visual & Brand Designer in Bangalore. Brand identity, websites, stationery, packaging and editorial design.">
 <meta property="og:title" content="Shaik Roshini, Visual & Brand Designer">
 <meta property="og:description" content="Brand identity, websites, stationery, packaging and editorial design.">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a10"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3f3f7">
+<meta name="theme-color" content="#0a0a10">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a10'/%3E%3Ccircle cx='24' cy='26' r='12' fill='%2300c2ff'/%3E%3Ccircle cx='40' cy='26' r='12' fill='%23ff2e93' fill-opacity='.85'/%3E%3Ccircle cx='32' cy='40' r='12' fill='%23ffd400' fill-opacity='.85'/%3E%3C/svg%3E">
 <title>Shaik Roshini · Visual &amp; Brand Designer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,13 +29,7 @@
   --nav:rgba(18,18,27,.6); --toolbg:rgba(18,18,27,.85); --canvas:#0e0e16; --knob:#3a3946; --line2:rgba(255,255,255,.2);
   --dotgrid:rgba(255,255,255,.09); --shadow:#000; --hl:#ffd400; --ink-blend:screen; --glow-op:.14; --skel:#26263a; --outline:rgba(255,255,255,.25);
 }
-/* light theme: follows the system unless the toggle picks one */
-@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
-  color-scheme:light;
-  --bg:#f3f3f7; --bg2:#ffffff; --bg3:#ebebf3; --glass:rgba(14,14,22,.035); --stroke:rgba(14,14,22,.1);
-  --fg:#0e0e16; --muted:#55546a; --dim:#8c8b9e; --c:#0096d6; --m:#e0167a; --y:#e6b800; --sel:#3d6bff;
-  --nav:rgba(255,255,255,.7); --toolbg:rgba(255,255,255,.9); --canvas:#e9e9f1; --knob:#cfcfdc; --line2:rgba(14,14,22,.22);
-  --dotgrid:rgba(14,14,22,.1); --shadow:rgba(30,30,60,.25); --hl:#e0167a; --ink-blend:multiply; --glow-op:.1; --skel:#dcdce8; --outline:rgba(14,14,22,.22) }}
+/* dark is the default; light only when the visitor picks it with the toggle */
 :root[data-theme="light"]{
   color-scheme:light;
   --bg:#f3f3f7; --bg2:#ffffff; --bg3:#ebebf3; --glass:rgba(14,14,22,.035); --stroke:rgba(14,14,22,.1);
@@ -85,7 +79,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .theme:hover svg{transform:rotate(40deg)}
 .theme .moon{display:none}
 :root[data-theme="light"] .theme .sun{display:none} :root[data-theme="light"] .theme .moon{display:block}
-@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .theme .sun{display:none}:root:not([data-theme="dark"]) .theme .moon{display:block}}
 ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
 .hire{background:var(--fg);color:var(--bg)!important;padding:9px 16px;border-radius:999px;text-decoration:none;font-weight:600;font-size:14px;white-space:nowrap}
 
@@ -527,7 +520,7 @@ footer{padding-block:40px;color:var(--dim);text-align:center}
   const root = document.documentElement;
   try { const t = localStorage.getItem('rs-theme'); if (t) root.dataset.theme = t; } catch {}
   $('#theme').addEventListener('click', e => {
-    const isLight = root.dataset.theme ? root.dataset.theme === 'light' : matchMedia('(prefers-color-scheme: light)').matches;
+    const isLight = root.dataset.theme === 'light';
     const next = isLight ? 'dark' : 'light';
     const apply = () => { root.dataset.theme = next; try { localStorage.setItem('rs-theme', next); } catch {} };
     if (!document.startViewTransition || reduce) return apply();
